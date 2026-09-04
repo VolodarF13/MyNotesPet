@@ -6,14 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.util.UUID;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateNoteResponse {
-    private UUID id;
+public class NoteResponse {
+    private Long id;
     private String title;
     private String content;
     private Instant createdAt;
