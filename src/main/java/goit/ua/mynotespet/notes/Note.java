@@ -1,6 +1,6 @@
-package goIt.ua.MyNotesPet.notes;
+package goit.ua.mynotespet.notes;
 
-import goIt.ua.MyNotesPet.users.User;
+import goit.ua.mynotespet.users.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,7 +27,7 @@ public class Note {
     private int id;
     @Column(name = "title", nullable = false, length = 255)
     private String title;
-    @Column(name = "content", nullable = false, length = 255)
+    @Column(name = "content", columnDefinition = "Text")
     private String content;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

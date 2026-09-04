@@ -1,4 +1,4 @@
-package goIt.ua.MyNotesPet.users;
+package goit.ua.mynotespet.users;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
-package goIt.ua.MyNotesPet.users;
+package goit.ua.mynotespet.users;
 
-import goIt.ua.MyNotesPet.notes.Note;
+import goit.ua.mynotespet.notes.Note;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
