@@ -1,4 +1,4 @@
-package goIt.ua.mynotespet.notes;
+package goit.ua.mynotespet.notes;
 
 import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.stereotype.Repository;
