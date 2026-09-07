@@ -38,8 +38,11 @@ public class NoteService {
         return mapToResponse(note);
     }
 
-    public List<Note> getAllNotes() {
-        return noteRepository.findAll();
+    public List<NoteResponse> getAllNotes(String username) {
+        return noteRepository.findAllByUserUsername(username)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     @Transactional
@@ -54,7 +57,8 @@ public class NoteService {
     }
 
     public void deleteNoteById(Long id) {
-        noteRepository.deleteById(id);
+        Note note = noteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Note not found! with id: " + id));
+        noteRepository.delete(note);
     }
 
     private NoteResponse mapToResponse(Note note) {
