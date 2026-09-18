@@ -120,7 +120,7 @@ public class NoteServiceTest {
         noteService.deleteNoteById(noteId);
 
         verify(noteRepository, times(1)).findById(noteId);
-        verify(noteRepository, times(1)).deleteById(noteId);
+        verify(noteRepository, times(1)).delete(mockNote);
     }
 
     @Test
