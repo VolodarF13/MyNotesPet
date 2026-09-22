@@ -1,5 +1,7 @@
-package goit.ua.mynotespet.users;
+package goit.ua.mynotespet.users.service;
 
+import goit.ua.mynotespet.users.entity.User;
+import goit.ua.mynotespet.users.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

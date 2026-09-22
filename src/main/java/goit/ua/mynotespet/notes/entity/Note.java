@@ -1,6 +1,6 @@
-package goit.ua.mynotespet.notes;
+package goit.ua.mynotespet.notes.entity;
 
-import goit.ua.mynotespet.users.User;
+import goit.ua.mynotespet.users.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,7 +16,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "notes")

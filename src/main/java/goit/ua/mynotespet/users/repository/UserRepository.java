@@ -1,5 +1,6 @@
-package goit.ua.mynotespet.users;
+package goit.ua.mynotespet.users.repository;
 
+import goit.ua.mynotespet.users.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

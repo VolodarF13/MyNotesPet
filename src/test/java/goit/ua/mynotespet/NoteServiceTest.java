@@ -1,13 +1,13 @@
 package goit.ua.mynotespet;
 
-import goit.ua.mynotespet.notes.Note;
-import goit.ua.mynotespet.notes.NoteRepository;
-import goit.ua.mynotespet.notes.NoteService;
+import goit.ua.mynotespet.notes.entity.Note;
+import goit.ua.mynotespet.notes.repository.NoteRepository;
+import goit.ua.mynotespet.notes.service.NoteService;
 import goit.ua.mynotespet.notes.dto.request.CreateNoteRequest;
 import goit.ua.mynotespet.notes.dto.request.UpdateNoteRequest;
 import goit.ua.mynotespet.notes.dto.response.NoteResponse;
-import goit.ua.mynotespet.users.User;
-import goit.ua.mynotespet.users.UserService;
+import goit.ua.mynotespet.users.entity.User;
+import goit.ua.mynotespet.users.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

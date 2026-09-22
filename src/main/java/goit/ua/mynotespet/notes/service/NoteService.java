@@ -1,10 +1,12 @@
-package goit.ua.mynotespet.notes;
+package goit.ua.mynotespet.notes.service;
 
 import goit.ua.mynotespet.notes.dto.request.CreateNoteRequest;
 import goit.ua.mynotespet.notes.dto.request.UpdateNoteRequest;
 import goit.ua.mynotespet.notes.dto.response.NoteResponse;
-import goit.ua.mynotespet.users.User;
-import goit.ua.mynotespet.users.UserService;
+import goit.ua.mynotespet.notes.entity.Note;
+import goit.ua.mynotespet.notes.repository.NoteRepository;
+import goit.ua.mynotespet.users.entity.User;
+import goit.ua.mynotespet.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
