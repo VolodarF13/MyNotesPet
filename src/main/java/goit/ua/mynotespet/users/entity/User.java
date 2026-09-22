@@ -34,7 +34,7 @@ public class User {
     private String username;
     @Column(name = "email", nullable = false, unique = true, length = 254)
     private String email;
-    @Column(name = "password", nullable = false, length = 50)
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
     @Column(name = "registrationDate", nullable = false)
     private Instant registrationDate;
