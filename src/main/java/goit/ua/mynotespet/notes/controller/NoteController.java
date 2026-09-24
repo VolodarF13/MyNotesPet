@@ -31,8 +31,8 @@ public class NoteController {
     }
 
     @GetMapping("/{id}")
-    public NoteResponse getNoteById(@PathVariable Long id) {
-        return noteService.getNoteById(id);
+    public NoteResponse getNoteById(@PathVariable Long id,  @RequestParam String username) {
+        return noteService.getNoteById(id, username);
     }
 
     @PostMapping
@@ -41,12 +41,12 @@ public class NoteController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteNoteById(@PathVariable Long id) {
-        noteService.deleteNoteById(id);
+    public void deleteNoteById(@PathVariable Long id, @RequestParam String username) {
+        noteService.deleteNoteById(id, username);
     }
 
     @PatchMapping("/{id}")
-    public NoteResponse updateNoteById(@RequestBody @Valid UpdateNoteRequest request, @PathVariable Long id) {
-        return noteService.updateNote(request, id);
+    public NoteResponse updateNoteById(@RequestBody @Valid UpdateNoteRequest request, @PathVariable Long id, @RequestParam String username) {
+        return noteService.updateNote(id, request, username);
     }
 }

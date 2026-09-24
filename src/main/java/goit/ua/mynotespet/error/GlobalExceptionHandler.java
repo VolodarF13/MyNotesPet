@@ -1,5 +1,6 @@
 package goit.ua.mynotespet.error;
 
+import goit.ua.mynotespet.notes.exception.NoteNotFoundException;
 import goit.ua.mynotespet.users.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,16 @@ public class GlobalExceptionHandler {
                 ErrorResponse.builder()
                         .message(ex.getMessage())
                         .error("User not found")
+                        .status(HttpStatus.NOT_FOUND)
+                        .timestamp(Instant.now())
+                        .build());
+    }
+    @ExceptionHandler(NoteNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFound(NoteNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ErrorResponse.builder()
+                        .message(ex.getMessage())
+                        .error("Note not found")
                         .status(HttpStatus.NOT_FOUND)
                         .timestamp(Instant.now())
                         .build());

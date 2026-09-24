@@ -49,7 +49,7 @@ public class NoteServiceTest {
 
         when(noteRepository.findById(noteId)).thenReturn(Optional.of(mockNote));
 
-        NoteResponse actualResponse = noteService.getNoteById(noteId);
+        NoteResponse actualResponse = noteService.getNoteById(noteId, null);
 
         assertNotNull(actualResponse);
         assertEquals(mockNote.getId(), actualResponse.getId());
@@ -67,7 +67,7 @@ public class NoteServiceTest {
         when(noteRepository.findById(nonExistingID)).thenReturn(Optional.empty());
 
         IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class, () -> noteService.getNoteById(nonExistingID)
+                IllegalArgumentException.class, () -> noteService.getNoteById(nonExistingID, null)
         );
 
         assertEquals("Note not found! with id: " + nonExistingID, exception.getMessage());
@@ -117,7 +117,7 @@ public class NoteServiceTest {
         Note mockNote = Note.builder().id(noteId).build();
 
         when(noteRepository.findById(noteId)).thenReturn(Optional.of(mockNote));
-        noteService.deleteNoteById(noteId);
+        noteService.deleteNoteById(noteId, null);
 
         verify(noteRepository, times(1)).findById(noteId);
         verify(noteRepository, times(1)).delete(mockNote);
@@ -130,7 +130,7 @@ public class NoteServiceTest {
 
         when(noteRepository.findById(neverExistingId)).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class, () -> noteService.deleteNoteById(neverExistingId));
+        assertThrows(IllegalArgumentException.class, () -> noteService.deleteNoteById(neverExistingId, null));
 
         verify(noteRepository, times(1)).findById(neverExistingId);
         verify(noteRepository, never()).deleteById(any());
@@ -147,7 +147,7 @@ public class NoteServiceTest {
         when(noteRepository.findById(noteId)).thenReturn(Optional.of(mockNote));
         when(noteRepository.save(any(Note.class))).thenReturn(updateNoteMock);
 
-        NoteResponse actualResponse = noteService.updateNote(updateMock, noteId);
+        NoteResponse actualResponse = noteService.updateNote(noteId, updateMock, null);
 
         assertNotNull(actualResponse);
         assertEquals(updateNoteMock.getId(), actualResponse.getId());
@@ -165,7 +165,7 @@ public class NoteServiceTest {
 
         when(noteRepository.findById(neverExistingId)).thenReturn(Optional.empty());
         IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class, () -> noteService.updateNote(null, neverExistingId)
+                IllegalArgumentException.class, () -> noteService.updateNote(neverExistingId, null, null)
         );
 
         assertEquals("Note not found! with id: " + neverExistingId, exception.getMessage());
