@@ -1,6 +1,8 @@
 package goit.ua.mynotespet.users.exception;
 
-public class UserNotFoundException extends RuntimeException {
+import goit.ua.mynotespet.error.NotFoundException;
+
+public class UserNotFoundException extends NotFoundException {
     public UserNotFoundException(String message) {
         super(message);
     }
