@@ -14,3 +14,9 @@
 
 ## Documentation
 - [ ] Add Swagger/OpenAPI (springdoc-openapi) for interactive API docs
+
+## Future / Long-term Ideas
+- [ ] Build a frontend on top of the existing REST API — a board of draggable/movable note "windows" (Trello/Notion-style)
+- [ ] Start with plain HTML/CSS/JS using `fetch` against `/api/v1/notes` and `/api/v1/users`
+- [ ] Later explore rewriting it with React and/or Vue
+- [ ] Not using Thymeleaf — server-side rendering doesn't fit drag-and-drop interactivity
