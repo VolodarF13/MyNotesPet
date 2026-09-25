@@ -1,6 +1,7 @@
 package goit.ua.mynotespet;
 
 import goit.ua.mynotespet.notes.entity.Note;
+import goit.ua.mynotespet.notes.exception.NoteNotFoundException;
 import goit.ua.mynotespet.notes.repository.NoteRepository;
 import goit.ua.mynotespet.notes.service.NoteService;
 import goit.ua.mynotespet.notes.dto.request.CreateNoteRequest;
@@ -40,8 +41,14 @@ public class NoteServiceTest {
     @DisplayName("Should return NoteResponse when note exists by ID")
     void getNoteById_WhenNoteExists_ReturnNoteResponse() {
         Long noteId = 1L;
+        String username = "john_doe";
+        User mockUser = User.builder()
+                .id(1L)
+                .username(username)
+                .build();
         Note mockNote = Note.builder()
                 .id(noteId)
+                .user(mockUser)
                 .title("TestTitle")
                 .content("TestContent")
                 .createdAt(Instant.now())
@@ -49,7 +56,7 @@ public class NoteServiceTest {
 
         when(noteRepository.findById(noteId)).thenReturn(Optional.of(mockNote));
 
-        NoteResponse actualResponse = noteService.getNoteById(noteId, null);
+        NoteResponse actualResponse = noteService.getNoteById(noteId, username);
 
         assertNotNull(actualResponse);
         assertEquals(mockNote.getId(), actualResponse.getId());
@@ -60,14 +67,14 @@ public class NoteServiceTest {
     }
 
     @Test
-    @DisplayName("Should throw IllegalArgumentException when note does not exist")
+    @DisplayName("Should throw NoteNotFoundException when note does not exist")
     void getNoteById_WhenNoteDoesNotExist_ThrowsException() {
         Long nonExistingID = 99L;
 
         when(noteRepository.findById(nonExistingID)).thenReturn(Optional.empty());
 
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class, () -> noteService.getNoteById(nonExistingID, null)
+        NoteNotFoundException exception = assertThrows(
+                NoteNotFoundException.class, () -> noteService.getNoteById(nonExistingID, null)
         );
 
         assertEquals("Note not found! with id: " + nonExistingID, exception.getMessage());
@@ -114,10 +121,15 @@ public class NoteServiceTest {
     @DisplayName("deleteNote_WhenNoteExists_DeletesSuccessfully")
     void deleteNote_WhenNoteExists_DeletesSuccessfully() {
         Long noteId = 1L;
-        Note mockNote = Note.builder().id(noteId).build();
+        String username = "john_doe";
+        User mockUser = User.builder()
+                .id(1L)
+                .username(username)
+                .build();
+        Note mockNote = Note.builder().id(noteId).user(mockUser).build();
 
         when(noteRepository.findById(noteId)).thenReturn(Optional.of(mockNote));
-        noteService.deleteNoteById(noteId, null);
+        noteService.deleteNoteById(noteId, username);
 
         verify(noteRepository, times(1)).findById(noteId);
         verify(noteRepository, times(1)).delete(mockNote);
@@ -130,7 +142,7 @@ public class NoteServiceTest {
 
         when(noteRepository.findById(neverExistingId)).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class, () -> noteService.deleteNoteById(neverExistingId, null));
+        assertThrows(NoteNotFoundException.class, () -> noteService.deleteNoteById(neverExistingId, null));
 
         verify(noteRepository, times(1)).findById(neverExistingId);
         verify(noteRepository, never()).deleteById(any());
@@ -140,14 +152,20 @@ public class NoteServiceTest {
     @DisplayName("updateNote_WhenNoteExists_ReturnsUpdatedNoteResponse")
     void updateNote_WhenNoteExists_ReturnsUpdatedNoteResponse() {
         Long noteId = 1L;
-        Note mockNote = Note.builder().id(noteId).title("Test Title").content("Test Content").build();
+        String username = "john_doe";
+        User mockUser = User.builder()
+                .id(1L)
+                .username(username)
+                .build();
+        Note mockNote = Note.builder().id(noteId).user(mockUser).title("Test Title").content("Test Content").build();
+
         UpdateNoteRequest updateMock = new UpdateNoteRequest("New Title", "New Content");
         Note updateNoteMock = Note.builder().id(noteId).title(updateMock.getTitle()).content(updateMock.getContent()).build();
 
         when(noteRepository.findById(noteId)).thenReturn(Optional.of(mockNote));
         when(noteRepository.save(any(Note.class))).thenReturn(updateNoteMock);
 
-        NoteResponse actualResponse = noteService.updateNote(noteId, updateMock, null);
+        NoteResponse actualResponse = noteService.updateNote(noteId, updateMock, username);
 
         assertNotNull(actualResponse);
         assertEquals(updateNoteMock.getId(), actualResponse.getId());
@@ -164,8 +182,8 @@ public class NoteServiceTest {
         Long neverExistingId = 99L;
 
         when(noteRepository.findById(neverExistingId)).thenReturn(Optional.empty());
-        IllegalArgumentException exception = assertThrows(
-                IllegalArgumentException.class, () -> noteService.updateNote(neverExistingId, null, null)
+        NoteNotFoundException exception = assertThrows(
+                NoteNotFoundException.class, () -> noteService.updateNote(neverExistingId, null, null)
         );
 
         assertEquals("Note not found! with id: " + neverExistingId, exception.getMessage());

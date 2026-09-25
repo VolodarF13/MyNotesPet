@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import java.time.Instant;
+import java.util.List;
 
 
 @Data
@@ -13,7 +14,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ErrorResponse {
-    private String message;
+    private List<String> message;
     private String error;
     private HttpStatus status;
     private Instant timestamp;
